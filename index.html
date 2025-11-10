@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Votre Marque de Montres - Commande Facile</title>
+    <style>
+        :root {
+            --primary-color: #1a1a1a;
+            --secondary-color: #ffffff;
+            --accent-color: #007bff;
+            --light-gray: #f4f4f4;
+            --border-color: #ddd;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--secondary-color);
+            color: var(--primary-color);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* --- Header --- */
+        header {
+            background: var(--secondary-color);
+            border-bottom: 1px solid var(--border-color);
+            padding: 20px 0;
+            text-align: center;
+        }
+
+        header .logo {
+            font-size: 2rem;
+            font-weight: bold;
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+
+        /* --- Hero Section --- */
+        .hero {
+            padding: 60px 20px;
+            text-align: center;
+            background-color: var(--light-gray);
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: #555;
+            margin-bottom: 20px;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: var(--accent-color);
+            color: var(--secondary-color);
+            padding: 12px 25px;
+            font-size: 1rem;
+            font-weight: bold;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        .cta-button:hover {
+            background-color: #0056b3;
+        }
+
+        /* --- Section Produits --- */
+        #products {
+            padding: 50px 0;
+        }
+
+        #products h2 {
+            text-align: center;
+            font-size: 2rem;
+            margin-bottom: 40px;
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+        }
+
+        .product-card {
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            background: var(--secondary-color);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+        }
+
+        .product-card img {
+            width: 100%;
+            height: 300px; /* Hauteur fixe pour l'image */
+            object-fit: cover; /* Assure que l'image couvre la zone */
+            display: block;
+        }
+
+        .product-info {
+            padding: 20px;
+        }
+
+        .product-info h3 {
+            font-size: 1.3rem;
+            margin-top: 0;
+        }
+
+        .product-info .price {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: var(--accent-color);
+            margin-bottom: 15px;
+        }
+
+        .product-info .select-product {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+            font-size: 1rem;
+            user-select: none; /* Empêche la sélection du texte */
+        }
+
+        .product-info .select-product input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+
+        /* --- Section Commande --- */
+        #order-section {
+            padding: 50px 0;
+            background-color: var(--light-gray);
+        }
+
+        #order-section h2 {
+            text-align: center;
+            font-size: 2rem;
+            margin-bottom: 40px;
+        }
+
+        .order-layout {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+        }
+
+        #checkout-form {
+            flex: 2;
+            background: var(--secondary-color);
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+        }
+
+        #order-summary {
+            flex: 1;
+            background: var(--secondary-color);
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+            min-width: 280px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+
+        .form-group input[type="text"],
+        .form-group input[type="tel"],
+        .form-group select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid var(--border-color);
+            border-radius: 5px;
+            font-size: 1rem;
+            box-sizing: border-box; /* Important pour le padding */
+        }
+
+        .form-group select:disabled {
+            background-color: #eee;
+            cursor: not-allowed;
+        }
+
+        #order-summary h3 {
+            margin-top: 0;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 10px;
+        }
+
+        #summary-items li {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            font-size: 0.95rem;
+        }
+
+        #summary-total {
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 2px solid var(--border-color);
+            font-size: 1.3rem;
+            font-weight: bold;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        #summary-placeholder {
+            color: #777;
+            text-align: center;
+        }
+
+        button[type="submit"] {
+            width: 100%;
+            background: var(--accent-color);
+            color: var(--secondary-color);
+            padding: 15px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+
+        /* --- Footer --- */
+        footer {
+            text-align: center;
+            padding: 40px 20px;
+            margin-top: 30px;
+            border-top: 1px solid var(--border-color);
+            color: #777;
+        }
+
+        /* --- Responsive --- */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+            .order-layout {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container">
+            <a href="#" class="logo">MaMarque de Montres</a>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero">
+            <h1>Découvrez nos montres exclusives</h1>
+            <p>La qualité et le style, livrés chez vous en Algérie.</p>
+            <a href="#order-section" class="cta-button">Commander maintenant</a>
+        </section>
+
+        <section id="products">
+            <div class="container">
+                <h2>Nos Modèles</h2>
+                <div class="product-grid">
+                    
+                    <div class="product-card">
+                        <img src="https://via.placeholder.com/400x400/000/FFF?text=Montre+Moderne" alt="Montre 1">
+                        <div class="product-info">
+                            <h3>La Moderne Noire</h3>
+                            <div class="price">12,500 DZD</div>
+                            <label class="select-product">
+                                <input type="checkbox" class="product-checkbox" 
+                                       data-name="La Moderne Noire" 
+                                       data-price="12500">
+                                Sélectionner cet article
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="product-card">
+                        <img src="https://via.placeholder.com/400x400/DDD/000?text=Montre+Classique" alt="Montre 2">
+                        <div class="product-info">
+                            <h3>La Classique Or</h3>
+                            <div class="price">18,000 DZD</div>
+                            <label class="select-product">
+                                <input type="checkbox" class="product-checkbox" 
+                                       data-name="La Classique Or" 
+                                       data-price="18000">
+                                Sélectionner cet article
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="product-card">
+                        <img src="https://via.placeholder.com/400x400/007BFF/FFF?text=Montre+Sport" alt="Montre 3">
+                        <div class="product-info">
+                            <h3>La Sportive Bleue</h3>
+                            <div class="price">9,800 DZD</div>
+                            <label class="select-product">
+                                <input type="checkbox" class="product-checkbox" 
+                                       data-name="La Sportive Bleue" 
+                                       data-price="9800">
+                                Sélectionner cet article
+                            </label>
+                        </div>
+                    </div>
+
+                    </div>
+            </div>
+        </section>
+
+        <section id="order-section">
+            <div class="container">
+                <h2>Passez votre commande</h2>
+                <div class="order-layout">
+                    
+                    <form id="checkout-form">
+                        <h3>Vos informations de livraison</h3>
+                        
+                        <div class="form-group">
+                            <label for="wilaya">Wilaya</label>
+                            <select id="wilaya" required>
+                                <option value="">-- Choisissez votre Wilaya --</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="commune">Commune</label>
+                            <select id="commune" required disabled>
+                                <option value="">-- D'abord, choisissez une Wilaya --</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="phone">Numéro de téléphone</label>
+                            <input type="tel" id="phone" placeholder="Ex: 05 XX XX XX XX" required>
+                        </div>
+
+                        <button type="submit">Confirmer la commande</button>
+                    </form>
+
+                    <aside id="order-summary">
+                        <h3>Votre Panier</h3>
+                        <ul id="summary-items">
+                            </ul>
+                        <div id="summary-placeholder">
+                            <p>Votre panier est vide. Sélectionnez un article ci-dessus.</p>
+                        </div>
+                        <div id="summary-total" style="display: none;">
+                            <span>Total:</span>
+                            <span id="total-price">0 DZD</span>
+                        </div>
+                    </aside>
+
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 MaMarque de Montres. Tous droits réservés.</p>
+        </div>
+    </footer>
+
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+
+            // --- 1. DONNÉES WILAYAS ET COMMUNES ---
+            // ATTENTION : Ceci est une liste SIMPLIFIÉE.
+            // Vous devez la compléter avec TOUTES vos wilayas et communes.
+            const algeriaData = {
+                "16 - Alger": ["Alger Centre", "Bab El Oued", "Kouba", "Hydra", "El Biar", "Bir Mourad Raïs"],
+                "31 - Oran": ["Oran", "Es Senia", "Bir El Djir", "Arzew", "Gdyel"],
+                "19 - Sétif": ["Sétif", "El Eulma", "Ain Oulmene", "Beni Aziz"],
+                "25 - Constantine": ["Constantine", "El Khroub", "Hamma Bouziane", "Didouche Mourad"],
+                // ... Ajoutez les 58 wilayas ici
+            };
+
+            const wilayaSelect = document.getElementById('wilaya');
+            const communeSelect = document.getElementById('commune');
+            const productCheckboxes = document.querySelectorAll('.product-checkbox');
+            const summaryItems = document.getElementById('summary-items');
+            const summaryPlaceholder = document.getElementById('summary-placeholder');
+            const summaryTotal = document.getElementById('summary-total');
+            const totalPriceEl = document.getElementById('total-price');
+            const checkoutForm = document.getElementById('checkout-form');
+
+            let selectedProducts = [];
+            let total = 0;
+
+            // --- 2. POPULATION DES WILAYAS ---
+            Object.keys(algeriaData).forEach(wilayaName => {
+                const option = document.createElement('option');
+                option.value = wilayaName;
+                option.textContent = wilayaName;
+                wilayaSelect.appendChild(option);
+            });
+
+            // --- 3. LOGIQUE DE SÉLECTION WILAYA/COMMUNE ---
+            wilayaSelect.addEventListener('change', function() {
+                // Vide les communes
+                communeSelect.innerHTML = '<option value="">-- Choisissez votre Commune --</option>';
+                
+                const selectedWilaya = this.value;
+
+                if (selectedWilaya && algeriaData[selectedWilaya]) {
+                    // Active le menu des communes
+                    communeSelect.disabled = false;
+                    
+                    // Ajoute les nouvelles communes
+                    algeriaData[selectedWilaya].forEach(communeName => {
+                        const option = document.createElement('option');
+                        option.value = communeName;
+                        option.textContent = communeName;
+                        communeSelect.appendChild(option);
+                    });
+                } else {
+                    // Désactive si "Choisissez" est sélectionné
+                    communeSelect.disabled = true;
+                }
+            });
+
+            // --- 4. LOGIQUE DE SÉLECTION DES PRODUITS ---
+            productCheckboxes.forEach(checkbox => {
+                checkbox.addEventListener('change', function() {
+                    const productData = {
+                        name: this.dataset.name,
+                        price: parseInt(this.dataset.price, 10)
+                    };
+
+                    if (this.checked) {
+                        // Ajoute au panier
+                        selectedProducts.push(productData);
+                    } else {
+                        // Retire du panier
+                        selectedProducts = selectedProducts.filter(product => product.name !== productData.name);
+                    }
+                    
+                    updateOrderSummary();
+                });
+            });
+
+            function updateOrderSummary() {
+                // Vide le résumé
+                summaryItems.innerHTML = '';
+                total = 0;
+
+                if (selectedProducts.length === 0) {
+                    summaryPlaceholder.style.display = 'block';
+                    summaryTotal.style.display = 'none';
+                } else {
+                    summaryPlaceholder.style.display = 'none';
+                    summaryTotal.style.display = 'flex';
+
+                    selectedProducts.forEach(product => {
+                        const li = document.createElement('li');
+                        li.innerHTML = `<span>${product.name}</span> <strong>${product.price.toLocaleString('fr-DZ')} DZD</strong>`;
+                        summaryItems.appendChild(li);
+                        total += product.price;
+                    });
+                }
+
+                // Met à jour le total
+                totalPriceEl.textContent = `${total.toLocaleString('fr-DZ')} DZD`;
+            }
+
+            // --- 5. SOUMISSION DU FORMULAIRE ---
+            checkoutForm.addEventListener('submit', function(e) {
+                e.preventDefault(); // Empêche la page de se recharger
+
+                // Récupération des données
+                const wilaya = wilayaSelect.value;
+                const commune = communeSelect.value;
+                const phone = document.getElementById('phone').value;
+
+                // Validation simple
+                if (selectedProducts.length === 0) {
+                    alert("Votre panier est vide ! Veuillez sélectionner au moins un article.");
+                    return;
+                }
+
+                if (!wilaya || !commune || !phone) {
+                    alert("Veuillez remplir tous les champs de livraison.");
+                    return;
+                }
+
+                // Création du résumé de la commande
+                const orderDetails = {
+                    client: {
+                        telephone: phone,
+                        wilaya: wilaya,
+                        commune: commune
+                    },
+                    produits: selectedProducts,
+                    total: total
+                };
+
+                // ---- C'EST ICI QUE LA MAGIE OPÈRE ----
+                // Pour l'instant, on affiche une alerte.
+                // Voir les instructions ci-dessous pour envoyer cette commande.
+                
+                const message = `
+                    Merci pour votre commande !
+                    
+                    --- Résumé ---
+                    Téléphone: ${phone}
+                    Wilaya: ${wilaya}
+                    Commune: ${commune}
+                    
+                    Produits:
+                    ${selectedProducts.map(p => `- ${p.name} (${p.price} DZD)`).join('\n')}
+                    
+                    Total: ${total} DZD
+                    
+                    Nous vous contacterons bientôt pour confirmation.
+                `;
+                
+                alert(message);
+
+                // Optionnel : vider le formulaire après la commande
+                // checkoutForm.reset();
+                // selectedProducts = [];
+                // updateOrderSummary();
+                // communeSelect.innerHTML = '<option value="">-- D'abord, choisissez une Wilaya --</option>';
+                // communeSelect.disabled = true;
+            });
+        });
+    </script>
+
+</body>
+</html>
